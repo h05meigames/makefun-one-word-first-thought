@@ -27,5 +27,11 @@ if ([...word].length < 1 || [...word].length > 24 || word.trim().length === 0) {
   );
 }
 
+// The gate is exactly one word: a string with a space in it would pass
+// the length guard but is two words, so reject any whitespace inside.
+if (/\s/.test(word)) {
+  throw new Error("entry word must be a single word with no spaces");
+}
+
 mkdirSync("/output", { recursive: true });
 writeFileSync("/output/entry.txt", word, "utf8");
